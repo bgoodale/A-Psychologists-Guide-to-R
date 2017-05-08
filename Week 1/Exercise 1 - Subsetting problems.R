@@ -1,7 +1,9 @@
 ### Basic subsetting on data frames
 
-# Let's look at the iris dataset, which contains measurements of flowers. The iris dataset is built into R
-# and so we don't need to read it in like we will in future weeks with other datasets. 
+# Let's look at the iris dataset, which contains measurements of flowers. 
+#The iris dataset is built into R
+# and so we don't need to read it in like we will 
+#in future weeks with other datasets. 
 
 # For this problem set, you'll want to know the functions max() and min(), which find the largest and smallest
 # values in a vector, respectively. You'll also want to know which.max and which.min, functions that
@@ -33,20 +35,28 @@ iris[, 2]
 # Now, for some of these problems, you'll need to combine logical subsetting with max and min to 
 # get the answer. See if you can work it out.
 
-# 1. What is the longest Petal Length in the dataset?
+# 1. What is the longest Petal Length in the dataset? 6.9
+max(iris['Petal.Length'])
 
 # 2. What is the longest Petal Length among flowers of the setosa species? 
+setosa<- subset(iris, iris$Species=='setosa')
+max(setosa['Petal.Length'])
 
 # 3. Which row contains the flower with the longest Petal Length?
+max(iris['Petal.Length'])
+which.max(iris$Petal.Length)
 
 ## Hint - use which.max here.
 
 ## You could also to combine regular max with logical subsetting to solve this one, e.g.:
 iris[iris$Sepal.Length > 2, ]
 
-# 4. What species is the flower with the smallest Sepal Length?
-
-# 5. What is the Sepal Width of the flower with the greatest Petal Length?
+# 4. What species is the flower with the smallest Sepal Length? Setosa
+smallsepallength <- iris[which.min(iris$Sepal.Length),]
+smallsepallength$Species
+# 5. What is the Sepal Width of the flower with the greatest Petal Length? width =2.6
+longlength <- iris[which.max(iris$Petal.Length),]
+longlength$Sepal.Width
 
 # The table() command is very useful. It takes a variable and gives frequencies of each response to that
 # variable. For instance:
@@ -60,26 +70,37 @@ table(numbers > 2)
 
 # The table command will be useful for problems 6 and 7
 
-# 6. How many flowers have a Sepal Length greater than 5?
+# 6. How many flowers have a Sepal Length greater than 5? 118 flowers
+table(iris$Sepal.Length>5)
 
-# 7. How many flowers of each species are there?
+# 7. How many flowers of each species are there? 50 of each type
+table(iris$Species)
 
 # For problem six, if you're having trouble, try combining table with a logical test like: 
 iris[, 'Sepal.Length'] > 5
 
 
 # 8. Is the mean of the Petal Length of setosa flowers greater than the mean of the Petal Length of versicolor
-#    flowers?
+#    flowers? FALSE!
+
+mean(iris[iris$Species== 'setosa', 'Petal.Length']) > mean(iris[iris$Species=='versicolor', 'Petal.Length'])
 
 ## Hint - You can subset both before and after the comma to specify both a specific set of rows and a 
 ## specific set of columns
 iris[iris$Species == 'versicolor', 'Petal.Length']
 
-# 9. Use the sd command to find the standard deviation of the Sepal Width for all flowers
-
+# 9. Use the sd command to find the standard deviation of the Sepal Width for all flowers = 0.44
+sd(iris$Sepal.Width)
 # 10. Find the sd of each species separately. It is higher or lower?
+sd(iris[iris$Species=='versicolor', 'Sepal.Width'])
+sd(iris[iris$Species=='setosa', 'Sepal.Width'])
+sd(iris[iris$Species=='virginica', 'Sepal.Width'])
+
+#shortcut way with tapply
+tapply(iris$Sepal.Width, iris$Species, sd)
 
 # 11. Among flowers of the versicolor and virginica species only, what is the smallest petal length?
+min(iris[iris$Species=='versicolor'|iris$Species=='virginica', 'Petal.Length'])
 
 # For problem 11, to avoid errors, it's important to know that == doesn't work like you might think it does in
 # this case. if you try to test whether the species == c('versicolor', 'virginica'), R will recycling that
