@@ -1,3 +1,44 @@
+#Class Exercises:
+a<-2^6
+a/0
+rep(1:3, times = 3)
+rep(1:3, each = 3)
+c<-c(1,2,3)
+rep(1:3, times=3, each=3)
+rep(c, times=3)
+
+mean(c(2, 6, 10, 24))
+
+v<- c(40, 31, 72)
+mean(rep(2:4, 2))
+median(v)
+
+a<- 1:10
+a[-1:4]
+a[-(1:4)]
+
+!TRUE
+#False
+TRUE | FALSE
+#True
+TRUE & FALSE
+#F
+(TRUE & FALSE) | TRUE
+#True
+FALSE & (TRUE == FALSE)
+#F
+(FALSE & TRUE) == FALSE
+#T
+FALSE & (FALSE | TRUE)
+#F
+(TRUE == FALSE) == (TRUE & FALSE)
+#F --> Got wrong, really = True
+
+d<- trees[trees$Girth < 13 | trees$Height>80,]
+d2 <- trees[trees$Height>(trees$Volume+40),]
+sum(trees$Volume<15)
+summary(trees)
+dim(trees)
 ### Basic subsetting on data frames
 
 # Let's look at the iris dataset, which contains measurements of flowers. 
